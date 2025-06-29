@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | GoDrive</title>
+  <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/djttuldic/image/upload/v1745151888/faviconcar_zfo0fd.webp">
+  <style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #2980b9, #6dd5fa);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-box h2 {
+    margin-bottom: 20px;
+    color: #2980b9;
+    text-align: center;
+  }
+  
+  .input-box {
+    margin-bottom: 20px;
+  }
+  
+  .input-box label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .login-btn {
+    background: #2980b9;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .login-btn:hover {
+    background: #2471a3;
+  }
+  
+  .options {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .options a {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .x-icons{
+    text-align: right;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <div class="x-icons">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" onclick="window.location.href='/';" >
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+      </svg>
+    </div>
+    <h2>Login</h2>
+    
+    <form action="/login" method="POST" id="loginForm">
+      <div class="input-box">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+      </div>
+      <div class="input-box">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+      </div>
+      <button class="login-btn" type="submit">Login</button>
+      <div class="options">
+        <p>Don't have an account? | <a href="/register">Register</a></p>
+      </div>
+    </form>
+  </div>
+
+  
+</body>
+</html>

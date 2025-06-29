@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car | GoDrive</title>
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/djttuldic/image/upload/v1745151888/faviconcar_zfo0fd.webp">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2471a3;
+        }
+        .x-icons{
+            text-align: right;
+          }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="x-icons">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" onclick="window.location.href='/adminmenu';" >
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+              </svg>
+            </div>
+        <h1>Add New Car</h1>
+
+        <form action="/addcar" method="POST" enctype="multipart/form-data">
+            <label for="name">Car Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="model">Car Model</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Sports">Sports</option>
+                <option value="Compact">Compact</option>
+                <option value="Luxury">Luxury</option>
+            </select>
+
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="Available">Available</option>
+                <option value="Unavailable">Unavailable</option>
+            </select>
+
+            <label for="rentprice">Rent Price (per day)</label>
+            <input type="number" id="rentprice" name="rentprice" required>
+
+            <label for="image">Image URL</label>
+            <input type="text" id="image" name="image" required>
+
+            <button type="submit">Add Car</button>
+        </form>
+    </div>
+</body>
+</html>

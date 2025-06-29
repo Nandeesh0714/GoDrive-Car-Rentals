@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f4f4f9;
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+        .profile-card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+            align-items:center;
+        }
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .profile-card h2 {
+            color: #2980b9;
+        }
+        .btn-edit {
+            background-color: #2980b9;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #2471a3;
+        }
+        p{
+            color:black;
+            font-weight:500;
+            text-align:left;
+        }
+        .x-icons{
+            text-align: right;
+          }
+    </style>
+</head>
+<body>
+    <div class="profile-card text-center">
+        <div class="x-icons">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" onclick="window.location.href='/adminmenu';" >
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+              </svg>
+            </div>
+        <h2>{{ customer.name }}</h2>
+        <p>CustomerID: {{ customer.customerID }}</p>
+        <p>Email: {{ customer.email }}</p>
+        <p>Phone: {{ customer.contact }}</p>
+        <p>Password: {{ customer.password }}</p>
+        <button class="btn btn-edit" onclick="window.location.href='/edit_profile'">Edit Profile</button>
+    </div>
+</body>
+</html>

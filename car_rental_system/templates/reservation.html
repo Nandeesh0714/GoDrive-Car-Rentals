@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation | GoDrive</title>
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/djttuldic/image/upload/v1745151888/faviconcar_zfo0fd.webp">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .reservation-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .reservation-form h2 {
+            margin-bottom: 20px;
+            color: #2980b9;
+        }
+        .reservation-form img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .reservation-form p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .reservation-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .reservation-form input,
+        .reservation-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .reservation-form button {
+            background: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .reservation-form button:hover {
+            background: #2471a3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="reservation-form">
+        <h2>Reservation</h2>
+        <img src="{{ car.image }}" alt="Car Image">
+        <h3 class="text-info">{{ car.Name }}</h3>
+        <h4>Car ID: {{ car.CarID }}</h4>
+        <p>Model: {{ car.Model }}</p>
+        <p>Category: {{ car.Category }}</p>
+        <p>Price: ₹<span id="daily_rent">{{ car.RentPrice }}</span> per day</p>
+        <form method="POST">
+            <label for="start_date">Start Date</label>
+            <input type="date" id="start_date" name="start_date" required>
+
+            <label for="end_date">End Date</label>
+            <input type="date" id="end_date" name="end_date" required>
+
+            <label for="total_amount">Total Amount:</label>
+            <p><strong>₹<span id="total_amount">0</span></strong></p>
+            <input type="hidden" id="hidden_total_amount" name="total_amount" value="0">
+
+            <label for="payment_method">Select Payment Method:</label>
+            <select id="payment_method" name="payment_method" onchange="handlePaymentMethodChange()" required>
+                <option value="" disabled selected>Select Method</option>
+                <option value="UPI">UPI</option>
+                <option value="CASH">Cash</option>
+            </select>
+
+            <div id="upi_section" class="hidden">
+                <p>Scan the QR Code for UPI Payment:</p>
+                <img src="/static/qrcode.jpg" alt="QR Code">
+                <label for="transaction_number">Transaction Number:</label>
+                <input type="text" id="transaction_number" name="transaction_number" placeholder="Enter Transaction Number">
+            </div>
+
+            <div id="cash_section" class="hidden">
+                <p>Please provide the cash when you visit the car rental center.</p>
+            </div>
+
+            <button type="submit">Confirm Reservation</button>
+        </form>
+    </div>
+
+    <script>
+        const dailyRent = parseFloat(document.getElementById('daily_rent').textContent);
+        const totalAmountElement = document.getElementById('total_amount');
+        const hiddenTotalAmountInput = document.getElementById('hidden_total_amount');
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+
+        // Disable dates based on requirements
+        window.onload = function () {
+            const today = new Date();
+            const todayISO = today.toISOString().split('T')[0]; // yyyy-mm-dd
+            const twoDaysLater = new Date();
+            twoDaysLater.setDate(today.getDate() + 2);
+            const twoDaysLaterISO = twoDaysLater.toISOString().split('T')[0]; // yyyy-mm-dd
+
+            startDateInput.min = todayISO;
+            startDateInput.max = twoDaysLaterISO;
+
+            startDateInput.addEventListener('change', function () {
+                const selectedStartDate = new Date(this.value);
+                const maxEndDate = new Date(selectedStartDate);
+                maxEndDate.setDate(selectedStartDate.getDate() + 7);
+                const minEndDateISO = selectedStartDate.toISOString().split('T')[0];
+                const maxEndDateISO = maxEndDate.toISOString().split('T')[0];
+
+                endDateInput.min = minEndDateISO;
+                endDateInput.max = maxEndDateISO;
+                endDateInput.value = ''; // Reset if any invalid date is selected
+            });
+        };
+
+        function handlePaymentMethodChange() {
+            const paymentMethod = document.getElementById('payment_method').value;
+            document.getElementById('upi_section').classList.toggle('hidden', paymentMethod !== 'UPI');
+            document.getElementById('cash_section').classList.toggle('hidden', paymentMethod !== 'CASH');
+        }
+
+        function calculateTotalAmount() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+
+            if (startDate && endDate && startDate <= endDate) {
+                const rentalDays = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1; // Include start date
+                const totalAmount = rentalDays * dailyRent;
+
+                totalAmountElement.textContent = totalAmount.toFixed(2);
+                hiddenTotalAmountInput.value = totalAmount.toFixed(2);
+            } else {
+                totalAmountElement.textContent = "0";
+                hiddenTotalAmountInput.value = "0";
+            }
+        }
+
+        startDateInput.addEventListener('change', calculateTotalAmount);
+        endDateInput.addEventListener('change', calculateTotalAmount);
+    </script>
+</body>
+</html>

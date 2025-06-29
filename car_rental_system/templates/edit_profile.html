@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f4f4f9;
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+        .edit-profile-card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .edit-profile-card h2 {
+            color: #2980b9;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .btn-save {
+            background-color: #2980b9;
+            color: white;
+        }
+        .btn-save:hover {
+            background-color: #2471a3;
+        }
+        .btn-cancel {
+            background-color: #ccc;
+            color: #333;
+        }
+        .btn-cancel:hover {
+            background-color: #aaa;
+        }
+        .x-icons{
+            text-align: right;
+          }
+    </style>
+</head>
+<body>
+    <div class="edit-profile-card">
+        <div class="x-icons">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" onclick="window.location.href='/adminmenu';" >
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+              </svg>
+            </div>
+        <h2 class="text-center">Edit Profile</h2>
+        <form action="/edit_profile" method="POST">
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ customer.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ customer.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="contact">Phone</label>
+                <input type="text" class="form-control" id="conatct" name="contactnumber" value="{{ customer.contact }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" id="password" name="password"  value="{{ customer.password }}" required >
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-save">Save Changes</button>
+                <a href="/profile" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

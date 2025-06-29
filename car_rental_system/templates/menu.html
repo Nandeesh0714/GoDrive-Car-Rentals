@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars menu | GoDrive</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    
+  <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/djttuldic/image/upload/v1745151888/faviconcar_zfo0fd.webp">
+  <style>
+    /* General Reset */
+    /* Add your existing CSS styles */
+    .car-card { display: inline-block; margin: 10px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+    .car-card img { max-width: 100%; }
+    .car-details { margin-top: 10px; }
+    .book-now-btn { margin-top: 10px; padding: 10px; border: none; background: #2980b9; color: white; border-radius: 5px; cursor: pointer; }
+    .book-now-btn:disabled { background: gray; cursor: not-allowed; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top:100px;
+    }
+
+    /* Header Section */
+    .header {
+      width: 100%;
+      background: #2980b9;
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header .user-profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .user-profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .header .user-profile span {
+      font-size: 1.2rem;
+    }
+
+    .logout-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+    }
+
+    /* Car Listing Section */
+    .car-listing {
+      max-width: 1200px;
+      width: 100%;
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .car-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .car-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .car-card .car-details {
+      padding: 15px;
+    }
+
+    .car-card .car-details h3 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: #2980b9;
+    }
+
+    .car-card .car-details p {
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .car-card .book-now-btn {
+      background: #2980b9;
+      color: white;
+      padding: 10px 15px;
+      text-align: center;
+      border: none;
+      border-radius: 0 0 10px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .car-card .book-now-btn:hover {
+      background: #2471a3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+    <a class="navbar-brand" href="#">WELCOME, {{username}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav m-auto">
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/profile" >Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reservation_history" >Reservation History</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout" >Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+
+  <!-- Car Listing Section -->
+  <section class="car-listing" id="carListing">
+    {% for car in query %}
+    <div class="car-card" id="car-{{ car.CarID }}">
+        <img src="{{ car.image }}" alt="{{ car.Name }}">
+        <div class="car-details">
+            <h3>{{ car.Name }}</h3>
+            <p>Model: {{ car.Model }}</p>
+            <p>Category: {{ car.Category }}</p>
+            <p>Price: ₹{{ car.RentPrice }}/day</p>
+            <p>Status: {{ car.Status }}</p>
+            <button class="book-now-btn" onclick="window.location.href='/reservation/{{car.CarID}}';"{% if car.Status != 'Available' %}disabled{% endif %}>Book Now</button>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+  
+</body>
+</html>
